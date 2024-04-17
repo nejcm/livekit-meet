@@ -1,4 +1,3 @@
-import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useState } from 'react';
@@ -157,7 +156,7 @@ function CustomConnectionTab({ label }: { label: string }) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps<{ tabIndex: number }> = async ({
+/* export const getServerSideProps: GetServerSideProps<{ tabIndex: number }> = async ({
   query,
   res,
 }) => {
@@ -165,8 +164,8 @@ export const getServerSideProps: GetServerSideProps<{ tabIndex: number }> = asyn
   const tabIndex = query.tab === 'custom' ? 1 : 0;
   return { props: { tabIndex } };
 };
-
-const Home = ({ tabIndex }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+ */
+const Home = ({ tabIndex }: { tabIndex?: number }) => {
   const router = useRouter();
   function onTabSelected(index: number) {
     const tab = index === 1 ? 'custom' : 'demo';
