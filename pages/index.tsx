@@ -165,8 +165,9 @@ function CustomConnectionTab({ label }: { label: string }) {
   return { props: { tabIndex } };
 };
  */
-const Home = ({ tabIndex }: { tabIndex?: number }) => {
+const Home = () => {
   const router = useRouter();
+  const currentTab = String(router.query['tab'] || 'demo') === 'custom' ? 1 : 0;
   function onTabSelected(index: number) {
     const tab = index === 1 ? 'custom' : 'demo';
     router.push({ query: { tab } });
@@ -188,7 +189,7 @@ const Home = ({ tabIndex }: { tabIndex?: number }) => {
             and Next.js.
           </h2>
         </div>
-        <Tabs selectedIndex={tabIndex} onTabSelected={onTabSelected}>
+        <Tabs selectedIndex={currentTab} onTabSelected={onTabSelected}>
           <DemoMeetingTab label="Demo" />
           <CustomConnectionTab label="Custom" />
         </Tabs>

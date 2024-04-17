@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  basePath: '/livekit-meet',
-  output: 'export',
+  /* basePath: "/livekit-meet",
+  output: "export", */
   reactStrictMode: true,
   swcMinify: false,
   productionBrowserSourceMaps: true,
