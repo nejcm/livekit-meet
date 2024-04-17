@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { decodePassphrase } from '../../lib/client-utils';
 import { DebugMode } from '../../lib/Debug';
+import { SettingsMenu } from '../../lib/SettingsMenu';
 
 export default function CustomRoomConnection() {
   const router = useRouter();
@@ -42,9 +43,10 @@ export default function CustomRoomConnection() {
           }
         : undefined,
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const room = useMemo(() => new Room(roomOptions), []);
+  const room = useMemo(() => new Room(roomOptions), [roomOptions]);
   if (e2eeEnabled) {
     keyProvider.setKey(e2eePassphrase);
     room.setE2EEEnabled(true);
@@ -73,7 +75,12 @@ export default function CustomRoomConnection() {
           audio={true}
           video={true}
         >
-          <VideoConference chatMessageFormatter={formatChatMessageLinks} />
+          <VideoConference
+            chatMessageFormatter={formatChatMessageLinks}
+            SettingsComponent={
+              process.env.NEXT_PUBLIC_SHOW_SETTINGS_MENU !== 'false' ? SettingsMenu : undefined
+            }
+          />
           <DebugMode logLevel={LogLevel.debug} />
         </LiveKitRoom>
       )}

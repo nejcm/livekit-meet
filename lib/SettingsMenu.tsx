@@ -1,13 +1,14 @@
 'use client';
-import * as React from 'react';
-import { LocalAudioTrack, Track } from 'livekit-client';
 import {
-  useMaybeLayoutContext,
-  useLocalParticipant,
   MediaDeviceMenu,
   TrackToggle,
+  useLocalParticipant,
+  useMaybeLayoutContext,
 } from '@livekit/components-react';
+import { LocalAudioTrack, Track } from 'livekit-client';
+import * as React from 'react';
 import styles from '../styles/SettingsMenu.module.css';
+import VirtualBackgroundComponent from './VirtualBackground';
 
 /**
  * @alpha
@@ -61,7 +62,7 @@ export function SettingsMenu(props: SettingsMenuProps) {
   }, [isNoiseFilterEnabled, microphoneTrack]);
 
   return (
-    <div className="settings-menu" style={{ width: '100%' }} {...props}>
+    <div className="settings-menu" style={{ width: '100%', paddingBottom: 60 }} {...props}>
       <div className={styles.tabs}>
         {tabs.map(
           (tab) =>
@@ -127,6 +128,8 @@ export function SettingsMenu(props: SettingsMenuProps) {
                 checked={isNoiseFilterEnabled}
               ></input>
             </section>
+            <h3>Video</h3>
+            <VirtualBackgroundComponent />
           </>
         )}
       </div>

@@ -1,15 +1,14 @@
 'use client';
 import {
   LiveKitRoom,
+  LocalUserChoices,
   VideoConference,
   formatChatMessageLinks,
   useToken,
-  LocalUserChoices,
 } from '@livekit/components-react';
 import {
   DeviceUnsupportedError,
   ExternalE2EEKeyProvider,
-  LogLevel,
   Room,
   RoomConnectOptions,
   RoomOptions,
@@ -24,8 +23,8 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 import { DebugMode } from '../../lib/Debug';
-import { decodePassphrase, useServerUrl } from '../../lib/client-utils';
 import { SettingsMenu } from '../../lib/SettingsMenu';
+import { decodePassphrase, useServerUrl } from '../../lib/client-utils';
 
 const PreJoinNoSSR = dynamic(
   async () => {
@@ -148,9 +147,10 @@ const ActiveRoom = ({ roomName, userChoices, onLeave }: ActiveRoomProps) => {
     };
     // @ts-ignore
     setLogLevel('debug', 'lk-e2ee');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userChoices, hq, codec]);
 
-  const room = React.useMemo(() => new Room(roomOptions), []);
+  const room = React.useMemo(() => new Room(roomOptions), [roomOptions]);
 
   if (e2eeEnabled) {
     keyProvider.setKey(decodePassphrase(e2eePassphrase));
@@ -184,7 +184,7 @@ const ActiveRoom = ({ roomName, userChoices, onLeave }: ActiveRoomProps) => {
           <VideoConference
             chatMessageFormatter={formatChatMessageLinks}
             SettingsComponent={
-              process.env.NEXT_PUBLIC_SHOW_SETTINGS_MENU === 'true' ? SettingsMenu : undefined
+              process.env.NEXT_PUBLIC_SHOW_SETTINGS_MENU !== 'false' ? SettingsMenu : undefined
             }
           />
           <DebugMode />
