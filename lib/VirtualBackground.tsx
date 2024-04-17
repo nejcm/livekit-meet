@@ -116,7 +116,6 @@ const VirtualBackgroundComponent = (): ReactElement | null => {
           display: 'flex',
           flexDirection: 'row',
           flexWrap: 'wrap',
-          justifyContent: 'center',
           alignItems: 'center',
           textAlign: 'center',
           gap: 6,
@@ -131,8 +130,8 @@ const VirtualBackgroundComponent = (): ReactElement | null => {
           <div>
             <div
               style={{
-                width: 88,
-                height: 56,
+                width: 120,
+                height: 74,
               }}
             ></div>
             <div>Disable</div>
@@ -149,7 +148,7 @@ const VirtualBackgroundComponent = (): ReactElement | null => {
             onClick={() => setSelected(item)}
           >
             <div>
-              <Image src={item.image} alt={item.name} width={88} height={50} />
+              <Image src={item.image} alt={item.name} width={120} />
               <div>{item.name}</div>
             </div>
           </button>
