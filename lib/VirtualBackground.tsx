@@ -1,3 +1,5 @@
+'use client';
+
 import { useLocalParticipant } from '@livekit/components-react';
 import {
   BackgroundBlur,
